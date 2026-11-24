@@ -6,7 +6,7 @@ import { NAV } from "@/lib/config";
 
 export default function Sidebar() {
   const path = usePathname();
-  const items = [...NAV, { href: "/settings", label: "Settings", short: "SET" }];
+  const items = [...NAV, { href: "/symbol-test", label: "Symbol Test", short: "TST" }, { href: "/settings", label: "Settings", short: "SET" }];
   return (
     <nav className="flex h-full flex-col gap-1 p-3">
       <Link href="/" className="mb-4 block px-2">
@@ -21,7 +21,7 @@ export default function Sidebar() {
             href={n.href}
             className={`flex items-center gap-2 rounded px-2 py-1.5 text-sm ${
               active ? "bg-desk-panel2 text-white" : "text-desk-dim hover:bg-desk-panel2 hover:text-desk-text"
-            } ${n.href === "/settings" ? "mt-auto" : ""}`}
+            } ${n.href === "/symbol-test" ? "mt-auto" : ""}`}
           >
             <span className={`w-8 font-mono text-[10px] ${active ? "text-desk-amber" : ""}`}>{n.short}</span>
             <span className="truncate">{n.label}</span>

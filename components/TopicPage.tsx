@@ -5,12 +5,14 @@ import { openAll, useAppState } from "@/lib/store";
 import EventLauncher from "./EventLauncher";
 import MyEvents from "./MyEvents";
 import TvWidget from "./TvWidget";
-import UsTreasuryBox from "./UsTreasuryBox";
+import OfficialYields from "./OfficialYields";
 
 export default function TopicPage({ topic }: { topic: Topic }) {
   const { symbols } = useAppState();
   const main = INDICATOR_BY_ID[topic.indicators[0]];
   const mainSym = symbols[main.id] ?? main.tvSymbol;
+  const hasYield = topic.indicators.some((id) => INDICATOR_BY_ID[id].kind === "yield");
+  const yieldCountry = !hasYield ? null : topic.country === "US" || topic.country === "ME" ? "us" : topic.country === "JP" ? "jp" : topic.country === "AU" ? "au" : null;
 
   return (
     <div className="flex flex-col gap-4">
@@ -67,6 +69,11 @@ export default function TopicPage({ topic }: { topic: Topic }) {
             {main.short} 전체 차트 ↗
           </a>
         </div>
+        {yieldCountry && (
+          <div className="mb-3 max-w-md">
+            <OfficialYields only={[yieldCountry]} />
+          </div>
+        )}
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {topic.indicators.map((id) => {
             const ind = INDICATOR_BY_ID[id];
@@ -75,7 +82,7 @@ export default function TopicPage({ topic }: { topic: Topic }) {
               return (
                 <div key={id} className="flex flex-col gap-2 rounded border border-desk-line p-2">
                   <div className="text-xs">{ind.label}</div>
-                  <UsTreasuryBox />
+                  <p className="text-[11px] text-desk-dim">30년물 − 2년물. 값과 bp 변화는 위 &apos;공식 국채금리&apos;에서 자동 계산합니다.</p>
                   <a className="text-[11px] text-desk-accent hover:underline" href={tvChartUrl(sym)} target="_blank" rel="noopener noreferrer">
                     TradingView 스프레드 차트 ({sym}) ↗
                   </a>

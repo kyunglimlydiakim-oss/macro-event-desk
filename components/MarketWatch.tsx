@@ -3,7 +3,7 @@
 import { INDICATORS, SITES, tvChartUrl } from "@/lib/config";
 import { useAppState } from "@/lib/store";
 import TvWidget from "./TvWidget";
-import UsTreasuryBox from "./UsTreasuryBox";
+import OfficialYields from "./OfficialYields";
 
 const KIND_BADGE: Record<string, string> = {
   futures: "FUT",
@@ -46,7 +46,7 @@ export default function MarketWatch() {
         }}
       />
 
-      <UsTreasuryBox />
+      <OfficialYields />
 
       <div>
         <div className="mb-1 font-mono text-[11px] text-desk-dim">차트 바로가기</div>
@@ -84,10 +84,12 @@ export default function MarketWatch() {
       </div>
 
       <p className="text-[10px] leading-snug text-desk-dim">
-        표시 원칙 · 위젯 시세는 TradingView 제공값으로, 거래소 라이선스에 따라 실시간 또는 지연(통상 10~20분)입니다.
-        기준 시각은 위젯 내부 표기를 따릅니다. 국채금리 위젯의 변화폭은 %p 단위이며 0.01 = 1bp입니다.
-        유가는 연속 근월물(CL1!, BRN1!)로, 계약월은 CME·ICE 링크에서 확인합니다. 위젯이 &quot;심볼 사용 불가&quot;를 표시하면
-        Settings에서 심볼을 바꿀 수 있습니다(예: TVC:USOIL, TVC:UKOIL — 단, 이는 선물이 아닌 CFD 지수입니다).
+        위젯 시세는 TradingView 제공값으로 실시간 또는 지연입니다. TradingView는 데이터 라이선스에 따라 일부 심볼(거래소 선물, TVC
+        국채금리 등)을 외부 위젯에 표시하지 않으며, 이 경우 칸이 비어 보입니다. 쓸 수 있는 심볼은{" "}
+        <a href="/symbol-test" className="underline">
+          Symbol Test
+        </a>
+        에서 확인·적용합니다. 국채금리는 위 &apos;공식 국채금리&apos;(일별 공시값)를 기준으로 봅니다.
       </p>
     </section>
   );

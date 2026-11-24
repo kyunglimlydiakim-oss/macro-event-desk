@@ -33,8 +33,10 @@ Vercel에서 이 저장소를 Import하면 Next.js로 자동 인식된다. 환�
 
 | 항목 | 출처 | 성격 |
 |---|---|---|
-| 시세 12종 | TradingView Market Quotes 위젯 | 거래소 라이선스에 따라 실시간 또는 지연 |
-| US 2Y/10Y/30Y, 2s30s 스프레드 | 미 재무부 Daily Par Yield Curve CSV (`/api/ust`, 1시간 캐시) | 공식 일별 고시값, bp 변화 자동 계산 |
+| 시세 | TradingView Market Quotes 위젯 | 실시간 또는 지연. 라이선스상 외부 위젯에 표시되지 않는 심볼이 있음(`/symbol-test`에서 확인) |
+| US 2Y/10Y/30Y, 2s30s | 미 재무부 Daily Par Yield Curve CSV (`/api/yields/us`) | 공식 일별 공시값, bp 변화 자동 계산 |
+| JP 2Y/10Y | 일본 재무성 국채금리 CSV `jgbcme.csv` (`/api/yields/jp`) | 공식 일별 공시값 |
+| AU 3Y | RBA 통계표 F2 일별 CSV (`/api/yields/au`) | 공식 일별 공시값, 게시 지연 가능 |
 | 경제 캘린더 | Investing.com 위젯(iframe) | 위젯 내부 클릭은 앱에서 감지 불가 |
 
 - 유가는 연속 근월물(`NYMEX:CL1!`, `ICEEUR:BRN1!`)이다. 계약월은 CME·ICE 링크에서 확인한다.
@@ -45,7 +47,7 @@ Vercel에서 이 저장소를 Import하면 Next.js로 자동 인식된다. 환�
 
 1. Investing.com 위젯 `timeZone=88`이 KST인지 확인한다. 다르면 Settings에서 코드를 바꾼다.
 2. TradingView 위젯에서 `NYMEX:CL1!`, `ICEEUR:BRN1!`, `TVC:AU03Y` 등이 표시되는지 확인한다. "symbol unavailable"이면 Settings에서 심볼을 바꾼다.
-3. `/api/ust`가 재무부 CSV를 정상 수신하는지 확인한다. 파서는 열 이름(`Date`, `2 Yr`, `10 Yr`, `30 Yr`)으로 값을 찾는다.
+3. `/symbol-test` 하단 '공식 국채금리 API 점검'에서 세 API가 `ok: true`인지 확인한다. 파서는 원문 형식을 추정해 예시 데이터로만 시험했다.
 
 ## 초기 버전 제외 범위
 
